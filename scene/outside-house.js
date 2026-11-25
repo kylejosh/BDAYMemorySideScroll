@@ -117,26 +117,58 @@ window.App.OutsideScene = (() => {
      ======================================================================== */
   function updateMetrics() {
     const viewportW = stageFrame.clientWidth || window.innerWidth;
-    const isMobile = viewportW < 640;
-    const momHalfW = isMobile ? 48 : 56;
-    const momScreenAnchor = isMobile
-      ? Math.max(54, Math.round(viewportW * 0.16))
-      : 250;
-    const frameWidth = isMobile
-      ? Math.min(214, viewportW - momScreenAnchor - 24)
-      : 258;
-    const frameOffsetFromTrigger = isMobile
-      ? Math.max(92, viewportW - momScreenAnchor - frameWidth - 14)
-      : 320;
-    const dissolveLeftThreshold = isMobile ? 22 : 58;
+    const viewportH = stageFrame.clientHeight || window.innerHeight;
+    const isPortraitMobile = viewportW < 640;
+    const isLandscapeMobile = !isPortraitMobile && viewportH <= 540;
 
-    metrics = {
-      viewportW,
-      momHalfW,
-      momScreenAnchor,
-      frameOffsetFromTrigger,
-      dissolveLeftThreshold,
-    };
+    if (isPortraitMobile) {
+      const momHalfW = 42;
+      const momScreenAnchor = Math.max(54, Math.round(viewportW * 0.16));
+      const frameWidth = Math.min(344, viewportW - 28);
+      const targetStartScreenX = Math.max(14, viewportW - frameWidth - 16);
+      const frameOffsetFromTrigger =
+        targetStartScreenX + momHalfW - momScreenAnchor;
+      const dissolveLeftThreshold = -Math.round(frameWidth * 0.38);
+
+      metrics = {
+        viewportW,
+        momHalfW,
+        momScreenAnchor,
+        frameOffsetFromTrigger,
+        dissolveLeftThreshold,
+      };
+    } else if (isLandscapeMobile) {
+      const momHalfW = 39;
+      const momScreenAnchor = 150;
+      const targetStartScreenX = 215;
+      const frameOffsetFromTrigger =
+        targetStartScreenX + momHalfW - momScreenAnchor;
+      const dissolveLeftThreshold = 40;
+
+      metrics = {
+        viewportW,
+        momHalfW,
+        momScreenAnchor,
+        frameOffsetFromTrigger,
+        dissolveLeftThreshold,
+      };
+    } else {
+      // Desktop: position large 430px Polaroid cleanly to the right of Mom
+      const momHalfW = 56;
+      const momScreenAnchor = 250;
+      const targetStartScreenX = 350;
+      const frameOffsetFromTrigger =
+        targetStartScreenX + momHalfW - momScreenAnchor;
+      const dissolveLeftThreshold = 58;
+
+      metrics = {
+        viewportW,
+        momHalfW,
+        momScreenAnchor,
+        frameOffsetFromTrigger,
+        dissolveLeftThreshold,
+      };
+    }
   }
 
   function syncChapterPositions() {
