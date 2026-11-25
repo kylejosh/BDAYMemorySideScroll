@@ -9,7 +9,7 @@ window.App = window.App || {};
   const modalPhotoBox = document.getElementById("modal-photo-box");
   const modalTitle = document.getElementById("modal-title");
   const modalNote = document.getElementById("modal-note");
-  const closeModalBtn = document.getElementById("close-modal-btn");
+  // const closeModalBtn = document.getElementById("close-modal-btn");
 
   const houseModal = document.getElementById("house-modal");
 
@@ -46,7 +46,7 @@ window.App = window.App || {};
     syncHudVisibility();
   }
 
-  closeModalBtn.addEventListener("click", closeMemoryModal);
+  // closeModalBtn.addEventListener("click", closeMemoryModal);
   memoryModal.addEventListener("click", (e) => {
     if (e.target === memoryModal) closeMemoryModal();
   });
@@ -102,7 +102,7 @@ window.App = window.App || {};
   requestAnimationFrame(tick);
 })();
 
-// Uncomment for performance diagnostic test 
+// Uncomment for performance diagnostic test
 
 // (() => {
 //   const hud = document.createElement("div");
