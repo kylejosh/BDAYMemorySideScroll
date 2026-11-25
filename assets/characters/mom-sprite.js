@@ -182,17 +182,22 @@ window.App.Sprites = window.App.Sprites || {};
 
   function renderChibiPixelSVG(matrix) {
     const px = 4;
-    let rects = "";
+    const canvas = document.createElement("canvas");
+    canvas.width = 112;
+    canvas.height = 144;
+    const ctx = canvas.getContext("2d");
+
     for (let r = 0; r < matrix.length; r++) {
       const row = matrix[r];
       for (let c = 0; c < row.length; c++) {
         const key = row[c];
         if (key !== "." && CHIBI_PALETTE[key]) {
-          rects += `<rect x="${c * px}" y="${r * px}" width="${px}" height="${px}" fill="${CHIBI_PALETTE[key]}"/>`;
+          ctx.fillStyle = CHIBI_PALETTE[key];
+          ctx.fillRect(c * px, r * px, px, px);
         }
       }
     }
-    return `<svg width="112" height="144" viewBox="0 0 112 144" shape-rendering="crispEdges">${rects}</svg>`;
+    return `<img src="${canvas.toDataURL()}" width="112" height="144" alt="" draggable="false" />`;
   }
 
   Object.assign(window.App.Sprites, {

@@ -94,9 +94,7 @@ body {
   width: 58px;
   height: 58px;
   border-radius: 16px;
-  background: rgba(24, 20, 28, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(24, 20, 28, 0.88);
   border: 3px solid rgba(255, 255, 255, 0.85);
   color: #ffffff;
   font-family: "Press Start 2P", monospace;
@@ -183,9 +181,7 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(16, 13, 24, 0.78);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background: rgba(16, 13, 24, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
