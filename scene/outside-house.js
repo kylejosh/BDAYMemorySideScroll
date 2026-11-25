@@ -433,6 +433,7 @@ window.App.OutsideScene = (() => {
       momSprite.classList.add("is-walking");
       momSprite.classList.toggle("facing-left", dx < 0);
       SoundManager.playStep();
+      startOutsideMusic();
 
       walkCycleTimer += Math.abs(dx);
       if (walkCycleTimer >= WALK_FRAME_DISTANCE) {
@@ -463,7 +464,43 @@ window.App.OutsideScene = (() => {
   }
 
   /* ========================================================================
-     8. INITIALIZATION & PUBLIC API
+     8. MUSIC BG
+     ======================================================================== */
+
+  const bgm = new Audio("assets/audio/bday-music.mp3");
+  bgm.loop = true;
+  bgm.volume = 0.3;
+  bgm.preload = "auto";
+  let bgmStarted = false;
+
+  function startOutsideMusic() {
+    if (bgmStarted) return;
+    bgm
+      .play()
+      .then(() => {
+        bgmStarted = true;
+      })
+      .catch(() => {
+        // Browser blocked autoplay before gesture; will retry on next tap
+      });
+  }
+
+  function stopOutsideMusic() {
+    bgm.pause();
+    bgm.currentTime = 0;
+    bgmStarted = false;
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      bgm.pause();
+    } else if (bgmStarted) {
+      bgm.play().catch(() => {});
+    }
+  });
+
+  /* ========================================================================
+     9. INITIALIZATION & PUBLIC API
      ======================================================================== */
   function init(callbacks) {
     stageFrame = document.getElementById("stage-frame");
@@ -497,6 +534,7 @@ window.App.OutsideScene = (() => {
       targetWorldX = null;
       SoundManager.playDoorEnter();
       callbacks.onEnterHouse();
+      stopOutsideMusic();
     });
 
     window.addEventListener("resize", () => {
