@@ -4,49 +4,166 @@ window.App.Sprites = window.App.Sprites || {};
 (() => {
   const TREES = {
     oak: `
-      <svg width="164" height="190" viewBox="0 0 164 190">
-        <path d="M74,190 L76,120 L58,96 L65,91 L80,108 L95,88 L102,94 L86,118 L89,190 Z" fill="#6f4518" stroke="#18141c" stroke-width="3"/>
-        <circle cx="52" cy="84" r="34" fill="#2d6a4f" stroke="#18141c" stroke-width="3"/>
-        <circle cx="112" cy="84" r="34" fill="#2d6a4f" stroke="#18141c" stroke-width="3"/>
-        <circle cx="82" cy="54" r="42" fill="#40916c" stroke="#18141c" stroke-width="3"/>
-        <circle cx="68" cy="46" r="22" fill="#52b788"/>
-        <circle cx="102" cy="74" r="18" fill="#52b788"/>
+      <svg width="290" height="330" viewBox="0 0 290 330">
+        <!-- Gnarled Trunk & Exposed Limbs -->
+        <path d="M106,330 C118,322 125,304 127,276 L127,232 L92,198 L101,190 L130,214 L138,182 L150,182 L154,212 L188,186 L197,195 L161,230 L161,276 C163,304 170,322 184,330 Z" fill="#6f4518" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M150,328 C154,306 155,278 154,230 L161,230 C162,278 164,306 178,328 Z" fill="#3e220e"/>
+        <path d="M133,318 Q135,282 133,242 M144,324 Q145,274 143,218" fill="none" stroke="#99622b" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Outer Scalloped Canopy Silhouette & Deep Under-Shadow -->
+        <path d="M46,204 C24,204 14,182 26,164 C14,146 24,122 44,116 C38,94 56,74 78,76 C88,52 118,40 144,48 C170,40 200,52 210,76 C232,74 250,94 244,116 C264,122 274,146 262,164 C274,182 264,204 242,204 C226,214 202,212 188,202 C170,214 146,214 130,204 C114,214 90,214 72,202 C58,212 52,210 46,204 Z" fill="#14381e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+
+        <!-- Mid-Dark Layered Boughs -->
+        <path d="M42,188 C24,186 18,164 30,150 C22,134 34,114 52,112 C56,94 78,86 96,96 C112,106 116,136 106,162 C96,182 68,192 42,188 Z" fill="#21572c"/>
+        <path d="M248,188 C266,186 272,164 260,150 C268,134 256,114 238,112 C234,94 212,86 194,96 C178,106 174,136 184,162 C194,182 222,192 248,188 Z" fill="#21572c"/>
+        <path d="M84,174 C68,168 64,144 78,130 C76,110 96,96 116,102 C132,92 158,92 174,102 C194,96 214,110 212,130 C226,144 222,168 206,174 C190,186 164,186 145,176 C126,186 100,186 84,174 Z" fill="#21572c"/>
+
+        <!-- Rich Mid-Light Leaf Clusters -->
+        <path d="M58,126 C46,114 52,90 70,84 C76,62 104,50 128,58 C148,46 180,50 194,68 C214,72 226,94 216,114 C224,130 210,150 190,150 C174,162 148,162 132,150 C114,162 88,160 74,146 C58,146 52,134 58,126 Z" fill="#337d37"/>
+        <path d="M32,154 C24,142 34,122 50,120 C58,108 78,110 86,122 C94,134 86,154 70,158 C54,162 38,162 32,154 Z" fill="#337d37"/>
+        <path d="M258,154 C266,142 256,122 240,120 C232,108 212,110 204,122 C196,134 204,154 220,158 C236,162 252,162 258,154 Z" fill="#337d37"/>
+
+        <!-- Sunlit Top Foliage Rims -->
+        <path d="M74,88 C80,66 108,54 130,62 C148,50 176,54 190,70 C174,66 154,66 138,76 C120,68 94,74 74,88 Z" fill="#55a630"/>
+        <path d="M34,136 C36,122 52,114 68,118 C54,122 44,128 34,136 Z" fill="#55a630"/>
+        <path d="M214,116 C228,112 246,118 252,132 C240,124 228,120 214,116 Z" fill="#55a630"/>
+        <path d="M98,66 C112,56 132,56 144,62 C130,64 112,66 98,66 Z" fill="#74c63e"/>
       </svg>`,
-    sakura: `
-      <svg width="168" height="186" viewBox="0 0 168 186">
-        <path d="M76,186 L78,118 L56,94 L63,89 L82,108 L104,86 L110,92 L88,118 L91,186 Z" fill="#5c3a21" stroke="#18141c" stroke-width="3"/>
-        <circle cx="50" cy="82" r="33" fill="#ff8fab" stroke="#18141c" stroke-width="3"/>
-        <circle cx="116" cy="80" r="33" fill="#ff8fab" stroke="#18141c" stroke-width="3"/>
-        <circle cx="84" cy="52" r="42" fill="#ffb3c6" stroke="#18141c" stroke-width="3"/>
-        <circle cx="72" cy="44" r="22" fill="#ffe5ec"/>
-        <circle cx="104" cy="70" r="16" fill="#ffc2d1"/>
+
+    palm: `
+      <svg width="230" height="355" viewBox="0 0 230 355">
+        <!-- Curved Segmented Trunk -->
+        <path d="M92,355 C100,346 102,332 98,312 C88,266 84,216 96,168 C102,146 110,128 118,114 L130,118 C122,134 115,152 110,174 C100,218 104,266 114,312 C118,332 122,346 130,355 Z" fill="#7a4b1e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M104,332 L115,329 M100,308 L112,305 M96,282 L109,279 M94,256 L106,254 M93,230 L105,229 M95,204 L107,204 M99,178 L110,180 M105,152 L116,156" stroke="#3e220e" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M97,296 Q91,246 101,182" fill="none" stroke="#9c6633" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Back Palm Fronds (Deep Green) -->
+        <path d="M122,112 C94,76 48,74 22,114 C36,108 46,112 52,122 C60,112 72,112 78,122 C88,112 102,112 112,118 Z" fill="#21572c" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M124,112 C154,76 196,76 218,116 C204,110 194,114 188,124 C180,114 168,114 162,124 C152,114 138,114 128,118 Z" fill="#21572c" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M122,110 C114,68 94,42 68,36 C82,46 86,56 82,66 C94,68 102,76 102,88 C112,92 118,100 120,112 Z" fill="#21572c" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+
+        <!-- Coconuts -->
+        <circle cx="115" cy="118" r="6" fill="#4a2810" stroke="#18141c" stroke-width="2.2"/>
+        <circle cx="127" cy="119" r="6" fill="#4a2810" stroke="#18141c" stroke-width="2.2"/>
+        <circle cx="121" cy="125" r="6" fill="#5c3314" stroke="#18141c" stroke-width="2.2"/>
+
+        <!-- Front Arching Palm Fronds -->
+        <path d="M120,112 C76,102 38,128 28,184 C40,170 50,170 54,180 C62,164 72,162 78,172 C86,154 98,150 104,158 C110,142 116,130 122,118 Z" fill="#337d37" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M120,114 C92,126 74,162 78,216 C86,202 94,200 100,208 C104,190 110,184 116,190 C118,168 120,144 122,120 Z" fill="#337d37" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M124,112 C166,104 202,130 210,184 C198,170 188,170 184,180 C176,164 166,162 160,172 C152,154 140,150 134,158 C128,142 124,130 122,118 Z" fill="#337d37" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M124,114 C150,128 166,162 162,212 C154,198 146,196 140,204 C136,186 130,180 126,186 C124,166 122,144 122,120 Z" fill="#337d37" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M122,110 C134,72 156,50 184,48 C170,56 166,66 170,76 C158,76 150,84 148,94 C138,96 130,102 124,112 Z" fill="#337d37" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+
+        <!-- Sunlit Frond Spines -->
+        <path d="M116,112 C78,104 46,126 34,172 C48,136 78,116 116,112 Z" fill="#55a630"/>
+        <path d="M126,112 C162,106 194,128 204,172 C190,136 162,116 126,112 Z" fill="#55a630"/>
+        <path d="M122,108 C134,74 154,54 178,50 C156,60 138,80 122,108 Z" fill="#74c63e"/>
       </svg>`,
-    pine: `
-      <svg width="136" height="214" viewBox="0 0 136 214">
-        <rect x="60" y="164" width="16" height="50" fill="#582f0e" stroke="#18141c" stroke-width="3"/>
-        <polygon points="68,82 18,168 118,168" fill="#1b4332" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
-        <polygon points="68,46 26,124 110,124" fill="#2d6a4f" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
-        <polygon points="68,14 36,80 100,80" fill="#40916c" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
-        <polygon points="68,22 50,58 74,58" fill="#52b788"/>
+
+    cypress: `
+      <svg width="175" height="380" viewBox="0 0 175 380">
+        <!-- Trunk -->
+        <path d="M72,380 C77,372 79,358 80,336 L80,316 L95,316 L95,336 C96,358 98,372 103,380 Z" fill="#5c3718" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M88,376 L88,324" stroke="#3b1f09" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Tall Layered Cypress Silhouette -->
+        <path d="M88,16 C98,42 110,68 112,92 C122,108 126,132 122,152 C134,172 138,200 132,224 C144,248 144,282 130,306 C122,320 104,324 88,320 C72,324 52,320 44,304 C30,280 32,244 44,220 C36,196 42,168 54,148 C48,128 54,104 66,88 C68,64 78,40 88,16 Z" fill="#14381e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+
+        <!-- Overlapping Spiraling Foliage Tiers -->
+        <path d="M48,298 C34,276 38,244 54,226 C72,212 104,218 122,238 C136,254 134,284 120,302 C104,316 64,316 48,298 Z" fill="#21572c"/>
+        <path d="M46,232 C38,208 46,178 64,162 C84,148 112,158 124,180 C134,198 130,224 114,236 C94,248 58,248 46,232 Z" fill="#21572c"/>
+        <path d="M54,164 C48,142 56,114 74,100 C92,88 114,98 120,118 C126,136 120,158 104,168 C86,178 62,176 54,164 Z" fill="#21572c"/>
+
+        <!-- Sunlit Left Foliage Ridges -->
+        <path d="M50,294 C36,272 40,242 58,226 C74,214 96,220 108,234 C90,234 72,244 64,264 C58,278 56,288 50,294 Z" fill="#337d37"/>
+        <path d="M48,226 C40,202 48,174 68,160 C84,150 102,156 112,170 C94,168 76,178 68,196 C62,210 56,220 48,226 Z" fill="#337d37"/>
+        <path d="M56,158 C50,136 58,110 76,98 C90,90 104,96 110,108 C94,108 80,118 72,134 C66,146 62,152 56,158 Z" fill="#337d37"/>
+        <path d="M68,94 C68,68 78,42 88,22 C94,40 96,62 92,84 C84,84 74,88 68,94 Z" fill="#337d37"/>
+
+        <!-- Bright Warm-Green Sun Edge -->
+        <path d="M46,282 C38,262 44,240 60,228 C52,244 48,264 46,282 Z" fill="#55a630"/>
+        <path d="M46,214 C42,194 50,172 68,162 C58,176 52,196 46,214 Z" fill="#55a630"/>
+        <path d="M56,146 C54,128 62,108 78,98 C68,112 62,130 56,146 Z" fill="#55a630"/>
+        <path d="M70,84 C72,62 80,42 88,24 C82,44 76,64 70,84 Z" fill="#74c63e"/>
       </svg>`,
-    citrus: `
-      <svg width="150" height="174" viewBox="0 0 150 174">
-        <rect x="68" y="114" width="14" height="60" rx="4" fill="#7f4f24" stroke="#18141c" stroke-width="3"/>
-        <circle cx="52" cy="80" r="30" fill="#386641" stroke="#18141c" stroke-width="3"/>
-        <circle cx="98" cy="80" r="30" fill="#386641" stroke="#18141c" stroke-width="3"/>
-        <circle cx="75" cy="52" r="36" fill="#6a994e" stroke="#18141c" stroke-width="3"/>
-        <circle cx="64" cy="44" r="18" fill="#a7c957"/>
-        <circle cx="52" cy="76" r="5" fill="#f77f00" stroke="#18141c" stroke-width="1.8"/>
-        <circle cx="88" cy="58" r="5" fill="#f77f00" stroke="#18141c" stroke-width="1.8"/>
-        <circle cx="96" cy="84" r="5" fill="#fcbf49" stroke="#18141c" stroke-width="1.8"/>
+
+    acacia: `
+      <svg width="315" height="325" viewBox="0 0 315 325">
+        <!-- Spreading Forked Trunk & Open Branch Architecture -->
+        <path d="M134,325 C146,316 152,298 152,272 C152,242 142,216 126,192 L62,154 L68,146 L124,176 L112,118 L122,116 L138,174 L166,112 L176,116 L154,176 L242,142 L247,151 L162,192 C172,216 176,242 176,272 C176,298 182,316 196,325 Z" fill="#6f4518" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M164,323 C166,296 166,246 154,192 L162,192 C172,246 174,296 190,323 Z" fill="#3e220e"/>
+        <path d="M156,312 Q158,262 142,204 M134,184 L80,154 M160,184 L232,150" fill="none" stroke="#99622b" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Far-Left Flat-Topped Foliage Pad -->
+        <path d="M22,152 C12,146 14,130 28,126 C36,114 62,110 82,116 C98,114 114,124 112,138 C118,148 108,156 94,154 C76,158 46,158 22,152 Z" fill="#14381e" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M24,144 C18,136 24,124 38,122 C48,114 70,112 86,118 C100,118 108,128 104,138 C88,144 48,146 24,144 Z" fill="#337d37"/>
+        <path d="M32,126 C46,116 74,114 92,120 C76,122 52,124 32,126 Z" fill="#55a630"/>
+
+        <!-- Upper-Left-Center High Pad -->
+        <path d="M68,116 C56,110 58,92 74,88 C86,72 124,68 148,76 C170,74 190,88 186,104 C192,114 180,122 164,120 C138,124 96,124 68,116 Z" fill="#14381e" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M72,108 C64,100 70,86 86,84 C100,72 132,70 154,78 C172,78 182,90 176,102 C154,108 102,110 72,108 Z" fill="#337d37"/>
+        <path d="M82,88 C102,74 138,72 162,80 C140,82 108,84 82,88 Z" fill="#74c63e"/>
+
+        <!-- Upper-Right High Pad -->
+        <path d="M148,120 C136,114 138,96 154,92 C166,78 202,74 226,82 C246,80 264,94 260,108 C266,118 254,126 238,124 C214,128 174,128 148,120 Z" fill="#14381e" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M152,112 C144,104 150,90 166,88 C178,78 210,76 230,84 C248,84 256,96 250,106 C230,112 180,114 152,112 Z" fill="#337d37"/>
+        <path d="M162,92 C180,80 214,78 236,86 C216,88 186,90 162,92 Z" fill="#55a630"/>
+
+        <!-- Far-Right Lower Pad -->
+        <path d="M204,152 C194,146 196,130 210,126 C220,114 248,110 268,116 C286,114 302,126 298,138 C304,148 292,156 278,154 C258,158 228,158 204,152 Z" fill="#14381e" stroke="#18141c" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M208,144 C202,136 208,124 222,122 C232,114 256,112 272,118 C286,118 294,128 290,138 C272,144 232,146 208,144 Z" fill="#337d37"/>
+        <path d="M216,126 C232,116 260,114 278,120 C262,122 236,124 216,126 Z" fill="#55a630"/>
       </svg>`,
-    willow: `
-      <svg width="166" height="196" viewBox="0 0 166 196">
-        <path d="M77,196 L79,112 L87,112 L89,196 Z" fill="#e9ecef" stroke="#18141c" stroke-width="3"/>
-        <line x1="80" y1="142" x2="85" y2="142" stroke="#495057" stroke-width="2.5"/>
-        <line x1="81" y1="168" x2="87" y2="168" stroke="#495057" stroke-width="2.5"/>
-        <path d="M30,136 Q26,46 83,38 Q140,46 136,136 Q116,124 104,138 Q92,122 83,138 Q72,122 60,138 Q48,124 30,136 Z" fill="#52b788" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M44,116 Q44,56 83,50 Q114,56 116,112" fill="none" stroke="#95d5b2" stroke-width="4" stroke-linecap="round"/>
+
+    elm: `
+      <svg width="265" height="350" viewBox="0 0 265 350">
+        <!-- Trunk & Root Flare -->
+        <path d="M100,350 C112,340 117,322 118,294 L118,246 L94,218 L103,210 L122,230 L132,202 L144,204 L142,230 L166,208 L174,216 L147,246 L147,294 C148,322 154,340 168,350 Z" fill="#6f4518" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M138,348 C141,322 141,288 140,246 L147,246 C148,288 152,322 164,348 Z" fill="#3e220e"/>
+        <path d="M126,336 Q128,296 126,252" fill="none" stroke="#99622b" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Tall Multi-Tiered Deciduous Silhouette -->
+        <path d="M48,228 C28,224 20,200 34,184 C20,164 28,136 50,128 C38,106 52,78 76,72 C78,44 106,24 134,26 C162,24 190,44 192,72 C216,78 230,106 218,128 C240,136 248,164 234,184 C248,200 240,224 220,228 C202,240 176,238 160,228 C144,238 122,238 106,228 C90,238 64,240 48,228 Z" fill="#14381e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+
+        <!-- Tier 1: Lower-Left & Lower-Right Boughs -->
+        <path d="M46,214 C28,210 24,188 38,176 C44,160 72,154 92,164 C110,174 112,202 96,214 C80,224 60,222 46,214 Z" fill="#21572c"/>
+        <path d="M220,214 C238,210 242,188 228,176 C222,160 194,154 174,164 C156,174 154,202 170,214 C186,224 206,222 220,214 Z" fill="#21572c"/>
+
+        <!-- Tier 2: Mid-Canopy Wide Foliage Mass -->
+        <path d="M44,168 C26,160 28,132 48,124 C58,104 92,98 116,108 C134,102 154,102 172,108 C196,98 224,108 224,130 C238,144 230,168 210,170 C188,182 156,182 134,172 C112,182 72,182 44,168 Z" fill="#337d37"/>
+
+        <!-- Tier 3: Upper-Middle Crown -->
+        <path d="M58,118 C42,106 48,78 70,72 C82,50 116,44 136,54 C158,44 190,52 198,74 C216,84 216,110 198,118 C176,130 148,130 132,120 C114,130 80,130 58,118 Z" fill="#21572c"/>
+        <path d="M66,106 C52,94 58,72 78,66 C90,48 120,44 136,54 C154,44 182,50 190,68 C204,78 202,98 186,106 C166,116 144,116 132,108 C116,116 84,116 66,106 Z" fill="#337d37"/>
+
+        <!-- Tier 4: Top Sunlit Dome -->
+        <path d="M84,64 C84,42 110,28 134,30 C158,28 184,42 184,64 C168,72 148,72 134,66 C118,72 98,72 84,64 Z" fill="#55a630"/>
+        <path d="M98,46 C112,34 142,32 162,42 C144,44 120,46 98,46 Z" fill="#74c63e"/>
+        <path d="M40,144 C42,130 58,120 76,122 C60,128 48,136 40,144 Z" fill="#55a630"/>
+      </svg>`,
+
+    grove: `
+      <svg width="255" height="340" viewBox="0 0 255 340">
+        <!-- Straight Rooted Trunk & Y-Branches -->
+        <path d="M102,340 C112,332 116,314 117,288 L117,236 L82,202 L90,194 L118,218 L122,168 L134,168 L136,216 L166,192 L174,200 L138,236 L138,288 C139,314 143,332 154,340 Z" fill="#6f4518" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M131,338 C133,312 133,280 132,236 L138,236 C139,280 142,312 150,338 Z" fill="#3e220e"/>
+        <path d="M124,328 L124,248" stroke="#99622b" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Left Foliage Cluster -->
+        <path d="M36,216 C18,212 12,190 24,174 C18,156 32,136 52,134 C66,122 92,124 106,138 C122,150 124,178 112,196 C102,214 66,222 36,216 Z" fill="#14381e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M34,198 C20,192 18,172 30,160 C28,144 44,132 62,134 C76,128 96,136 104,152 C112,168 104,188 88,196 C70,204 48,204 34,198 Z" fill="#337d37"/>
+        <path d="M32,158 C36,142 54,132 74,136 C58,140 44,148 32,158 Z" fill="#55a630"/>
+
+        <!-- Right Foliage Cluster -->
+        <path d="M218,220 C236,216 242,194 230,178 C236,160 222,140 202,138 C188,126 162,128 148,142 C132,154 130,182 142,200 C152,218 188,226 218,220 Z" fill="#14381e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M220,202 C234,196 236,176 224,164 C226,148 210,136 192,138 C178,132 158,140 150,156 C142,172 150,192 166,200 C184,208 206,208 220,202 Z" fill="#337d37"/>
+        <path d="M180,138 C198,134 216,142 222,158 C210,148 196,142 180,138 Z" fill="#55a630"/>
+
+        <!-- Dominant Top-Center Crown -->
+        <path d="M74,156 C52,148 44,122 58,102 C50,80 66,54 90,50 C104,30 144,28 162,48 C186,50 204,74 196,98 C210,118 202,146 180,156 C160,168 134,168 118,158 C102,168 88,164 74,156 Z" fill="#14381e" stroke="#18141c" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M72,138 C56,128 54,104 68,88 C64,68 82,50 104,48 C118,34 148,34 162,50 C182,54 194,74 186,94 C196,110 186,132 168,138 C150,148 128,148 114,138 C98,148 84,144 72,138 Z" fill="#337d37"/>
+        <path d="M74,84 C76,62 98,46 122,46 C136,36 158,38 170,52 C152,50 132,52 116,62 C100,66 84,74 74,84 Z" fill="#55a630"/>
+        <path d="M104,48 C118,38 142,38 156,46 C140,46 120,48 104,48 Z" fill="#74c63e"/>
       </svg>`,
   };
 

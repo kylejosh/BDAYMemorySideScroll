@@ -215,11 +215,12 @@ window.App.OutsideScene = (() => {
 
     // Pre-rasterize tree types once so scrolling never invokes vector SVG rendering
     const treeDimensions = {
-      oak: [164, 190],
-      sakura: [168, 186],
-      pine: [136, 214],
-      citrus: [150, 174],
-      willow: [166, 196],
+      oak: [204, 190],
+      palm: [168, 186],
+      cypress: [270, 214],
+      acacia: [150, 174],
+      elm: [166, 196],
+      grove: [166, 196],
     };
     const cachedTrees = {};
     Object.keys(treeDimensions).forEach((type) => {
@@ -233,7 +234,7 @@ window.App.OutsideScene = (() => {
     const cachedFence = createCachedSvgImage(fenceSvg, 210, 34);
 
     const sceneryFrag = document.createDocumentFragment();
-    const treeTypes = ["oak", "sakura", "pine", "citrus", "willow"];
+    const treeTypes = ["oak", "palm", "cypress", "elm", "grove"];
     let treeIdx = 0;
 
     for (let tx = 40; tx < HOUSE_WORLD_X - 150; tx += 235) {
