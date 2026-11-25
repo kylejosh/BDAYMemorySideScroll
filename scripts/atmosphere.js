@@ -85,7 +85,7 @@ window.App.Atmosphere = (() => {
   ];
 
   let lastTarget = null;
-  let lastU = -1;
+  let lastQuantizedU = -1;
   let lastViewportW = -1;
 
   function hexToRgb(hex) {
@@ -130,18 +130,19 @@ window.App.Atmosphere = (() => {
 
   function apply(targetEl, uRaw, viewportW) {
     const u = Math.max(0, Math.min(1, uRaw));
+    // Quantize to 40 steps so mobile GPUs don't re-rasterize full-screen gradients every frame
+    const quantizedU = Math.round(u * 40) / 40;
 
-    // Skip expensive CSS variable recalculations when atmosphere hasn't changed
     if (
       targetEl === lastTarget &&
       viewportW === lastViewportW &&
-      Math.abs(u - lastU) < 0.0005
+      quantizedU === lastQuantizedU
     ) {
       return;
     }
 
     lastTarget = targetEl;
-    lastU = u;
+    lastQuantizedU = quantizedU;
     lastViewportW = viewportW;
 
     let sA = ATMOSPHERE_STOPS[0];
@@ -149,10 +150,13 @@ window.App.Atmosphere = (() => {
     let localT = 0;
 
     for (let i = 0; i < ATMOSPHERE_STOPS.length - 1; i++) {
-      if (u >= ATMOSPHERE_STOPS[i].u && u <= ATMOSPHERE_STOPS[i + 1].u) {
+      if (
+        quantizedU >= ATMOSPHERE_STOPS[i].u &&
+        quantizedU <= ATMOSPHERE_STOPS[i + 1].u
+      ) {
         sA = ATMOSPHERE_STOPS[i];
         sB = ATMOSPHERE_STOPS[i + 1];
-        localT = (u - sA.u) / (sB.u - sA.u);
+        localT = (quantizedU - sA.u) / (sB.u - sA.u);
         break;
       }
     }

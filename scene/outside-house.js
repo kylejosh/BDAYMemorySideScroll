@@ -13,7 +13,7 @@ window.App.OutsideScene = (() => {
   const HOUSE_STOP_X = HOUSE_WORLD_X + 290;
   const WORLD_WIDTH = HOUSE_WORLD_X + 830;
 
-  const WALK_SPEED = 4.5;
+  const WALK_SPEED_PER_60HZ_FRAME = 4.5;
   const WALK_FRAME_DISTANCE = 26;
 
   const ATMOSPHERE_MILESTONES = [
@@ -36,7 +36,10 @@ window.App.OutsideScene = (() => {
   let chibiMount;
   let enterHouseBtn;
 
-  let chapters = []; // [{ el, triggerX, frameX, state }]
+  let poseNodes = []; // Pre-mounted sprite DOM nodes [front, walk0, walk1, ...]
+  let activePoseIndex = 0;
+
+  let chapters = [];
   let metrics = null;
 
   let momWorldX = 160;
@@ -45,9 +48,9 @@ window.App.OutsideScene = (() => {
   let activeSlotIndex = -1;
   let walkCycleTimer = 0;
   let currentWalkIdx = 0;
-  let isCurrentlyFrontPose = true;
   let houseBtnVisible = false;
   let needsRender = true;
+  let lastUpdateTime = 0;
   const chimedChapters = new Set();
 
   function clamp(val, min, max) {
@@ -55,7 +58,62 @@ window.App.OutsideScene = (() => {
   }
 
   /* ========================================================================
-     3. CACHED VIEWPORT METRICS
+     3. SVG-TO-BITMAP RASTERIZER (ELIMINATES MOBILE VECTOR RASTER LAG)
+     ======================================================================== */
+  function createCachedSvgImage(svgMarkup, width, height) {
+    const normalizedSvg = svgMarkup.includes("xmlns=")
+      ? svgMarkup
+      : svgMarkup.replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"');
+
+    const imgEl = document.createElement("img");
+    imgEl.width = width;
+    imgEl.height = height;
+    imgEl.alt = "";
+    imgEl.draggable = false;
+    imgEl.style.display = "block";
+
+    const encoded = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(normalizedSvg)}`;
+    imgEl.src = encoded;
+
+    // Rasterize onto a PNG data URL once decoded so mobile GPUs cache a pure bitmap
+    const loader = new Image();
+    loader.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = width * 2;
+      canvas.height = height * 2;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(loader, 0, 0, canvas.width, canvas.height);
+      imgEl.src = canvas.toDataURL("image/png");
+    };
+    loader.src = encoded;
+
+    return imgEl;
+  }
+
+  function mountPrebuiltChibiPoses() {
+    const allFrames = [Sprites.chibiFrontSVG, ...Sprites.chibiWalkFramesSVG];
+    chibiMount.innerHTML = "";
+    poseNodes = allFrames.map((markup, idx) => {
+      const holder = document.createElement("div");
+      holder.style.width = "100%";
+      holder.style.height = "100%";
+      holder.style.display = idx === 0 ? "block" : "none";
+      holder.innerHTML = markup;
+      chibiMount.appendChild(holder);
+      return holder;
+    });
+    activePoseIndex = 0;
+  }
+
+  function setChibiPose(poseIdx) {
+    if (poseIdx === activePoseIndex || !poseNodes[poseIdx]) return;
+    poseNodes[activePoseIndex].style.display = "none";
+    poseNodes[poseIdx].style.display = "block";
+    activePoseIndex = poseIdx;
+  }
+
+  /* ========================================================================
+     4. CACHED VIEWPORT METRICS
      ======================================================================== */
   function updateMetrics() {
     const viewportW = stageFrame.clientWidth || window.innerWidth;
@@ -89,7 +147,7 @@ window.App.OutsideScene = (() => {
   }
 
   /* ========================================================================
-     4. WORLD SCENERY & CHAPTER BUILDERS
+     5. WORLD SCENERY & CHAPTER BUILDERS
      ======================================================================== */
   function buildWorldProps() {
     worldTrack.style.width = `${WORLD_WIDTH}px`;
@@ -112,7 +170,25 @@ window.App.OutsideScene = (() => {
     }
     cloudLayerEl.appendChild(cloudFrag);
 
-    // Trees, Streetlamps & Fences
+    // Pre-rasterize tree types once so scrolling never invokes vector SVG rendering
+    const treeDimensions = {
+      oak: [164, 190],
+      sakura: [168, 186],
+      pine: [136, 214],
+      citrus: [150, 174],
+      willow: [166, 196],
+    };
+    const cachedTrees = {};
+    Object.keys(treeDimensions).forEach((type) => {
+      const [w, h] = treeDimensions[type];
+      cachedTrees[type] = createCachedSvgImage(Sprites.TREES[type], w, h);
+    });
+
+    const fenceSvg =
+      Sprites.WOODEN_FENCE_SVG ||
+      `<svg width="210" height="34" viewBox="0 0 210 34"><rect x="0" y="10" width="210" height="5" fill="#bc6c25" stroke="#18141c" stroke-width="2"/><rect x="0" y="21" width="210" height="5" fill="#bc6c25" stroke="#18141c" stroke-width="2"/><rect x="12" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/><rect x="64" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/><rect x="116" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/><rect x="168" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/></svg>`;
+    const cachedFence = createCachedSvgImage(fenceSvg, 210, 34);
+
     const sceneryFrag = document.createDocumentFragment();
     const treeTypes = ["oak", "sakura", "pine", "citrus", "willow"];
     let treeIdx = 0;
@@ -126,7 +202,7 @@ window.App.OutsideScene = (() => {
       el.style.zIndex = treeIdx % 2 === 0 ? 2 : 3;
       el.style.transform = `scale(${scale})`;
       el.style.transformOrigin = "bottom center";
-      el.innerHTML = Sprites.TREES[type];
+      el.appendChild(cachedTrees[type].cloneNode());
       sceneryFrag.appendChild(el);
       treeIdx++;
     }
@@ -150,7 +226,7 @@ window.App.OutsideScene = (() => {
       const fence = document.createElement("div");
       fence.className = "wooden-fence";
       fence.style.left = `${fx}px`;
-      fence.innerHTML = Sprites.WOODEN_FENCE_SVG;
+      fence.appendChild(cachedFence.cloneNode());
       sceneryFrag.appendChild(fence);
     }
 
@@ -204,7 +280,7 @@ window.App.OutsideScene = (() => {
   }
 
   /* ========================================================================
-     5. CAMERA, PROXIMITY & PARALLAX RENDER
+     6. CAMERA, PROXIMITY & PARALLAX RENDER
      ======================================================================== */
   function render() {
     if (!needsRender) return;
@@ -256,28 +332,35 @@ window.App.OutsideScene = (() => {
       enterHouseBtn.classList.toggle("visible", houseBtnVisible);
     }
 
-    worldTrack.style.transform = `translate3d(${-cameraX}px, 0, 0)`;
-    cloudLayerEl.style.transform = `translate3d(${-cameraX * 0.14}px, 0, 0)`;
-    mountainsLayerEl.style.transform = `translate3d(${-cameraX * 0.22}px, 0, 0)`;
-    hillsLayerEl.style.transform = `translate3d(${-cameraX * 0.38}px, 0, 0)`;
+    const camRounded = Math.round(cameraX * 10) / 10;
+    worldTrack.style.transform = `translate3d(${-camRounded}px, 0, 0)`;
+    cloudLayerEl.style.transform = `translate3d(${-(camRounded * 0.14).toFixed(1)}px, 0, 0)`;
+    mountainsLayerEl.style.transform = `translate3d(${-(camRounded * 0.22).toFixed(1)}px, 0, 0)`;
+    hillsLayerEl.style.transform = `translate3d(${-(camRounded * 0.38).toFixed(1)}px, 0, 0)`;
   }
 
   /* ========================================================================
-     6. CHARACTER MOVEMENT & WALK ANIMATION LOOP
+     7. CHARACTER MOVEMENT & WALK ANIMATION LOOP
      ======================================================================== */
   function update(inputState, isBlocked) {
+    const now = performance.now();
+    const rawDt = lastUpdateTime ? (now - lastUpdateTime) / 1000 : 1 / 60;
+    lastUpdateTime = now;
+    const dtScale = Math.min(rawDt, 0.05) * 60;
+    const stepDistance = WALK_SPEED_PER_60HZ_FRAME * dtScale;
+
     let dx = 0;
 
     if (!isBlocked) {
       const goLeft = inputState.keyLeft || inputState.btnLeft;
       const goRight = inputState.keyRight || inputState.btnRight;
 
-      if (goLeft && !goRight) dx = -WALK_SPEED;
-      else if (goRight && !goLeft) dx = WALK_SPEED;
+      if (goLeft && !goRight) dx = -stepDistance;
+      else if (goRight && !goLeft) dx = stepDistance;
       else if (targetWorldX !== null) {
         const diff = targetWorldX - momWorldX;
-        if (Math.abs(diff) > 4) {
-          dx = Math.sign(diff) * WALK_SPEED;
+        if (Math.abs(diff) > stepDistance) {
+          dx = Math.sign(diff) * stepDistance;
         } else {
           momWorldX = targetWorldX;
           targetWorldX = null;
@@ -289,28 +372,23 @@ window.App.OutsideScene = (() => {
 
     if (dx !== 0) {
       momWorldX = clamp(momWorldX + dx, 100, HOUSE_STOP_X);
-      momSprite.style.left = `${momWorldX}px`;
+      momSprite.style.left = `${momWorldX.toFixed(1)}px`;
       momSprite.classList.add("is-walking");
       momSprite.classList.toggle("facing-left", dx < 0);
       SoundManager.playStep();
 
-      if (isCurrentlyFrontPose) {
-        isCurrentlyFrontPose = false;
-        chibiMount.innerHTML = Sprites.chibiWalkFramesSVG[currentWalkIdx];
-      }
       walkCycleTimer += Math.abs(dx);
       if (walkCycleTimer >= WALK_FRAME_DISTANCE) {
         walkCycleTimer = 0;
         currentWalkIdx =
           (currentWalkIdx + 1) % Sprites.chibiWalkFramesSVG.length;
-        chibiMount.innerHTML = Sprites.chibiWalkFramesSVG[currentWalkIdx];
       }
+      setChibiPose(currentWalkIdx + 1);
 
       needsRender = true;
-    } else if (!isCurrentlyFrontPose) {
+    } else if (activePoseIndex !== 0) {
       momSprite.classList.remove("is-walking");
-      isCurrentlyFrontPose = true;
-      chibiMount.innerHTML = Sprites.chibiFrontSVG;
+      setChibiPose(0);
     }
 
     render();
@@ -322,14 +400,13 @@ window.App.OutsideScene = (() => {
     chimedChapters.clear();
     momSprite.style.left = `${momWorldX}px`;
     momSprite.classList.remove("facing-left", "is-walking");
-    isCurrentlyFrontPose = true;
-    chibiMount.innerHTML = Sprites.chibiFrontSVG;
+    setChibiPose(0);
     needsRender = true;
     render();
   }
 
   /* ========================================================================
-     7. INITIALIZATION & PUBLIC API
+     8. INITIALIZATION & PUBLIC API
      ======================================================================== */
   function init(callbacks) {
     stageFrame = document.getElementById("stage-frame");
@@ -342,8 +419,7 @@ window.App.OutsideScene = (() => {
     chibiMount = document.getElementById("chibi-sprite-mount");
     enterHouseBtn = document.getElementById("enter-house-btn");
 
-    chibiMount.innerHTML = Sprites.chibiFrontSVG;
-
+    mountPrebuiltChibiPoses();
     updateMetrics();
     buildWorldProps();
     buildChapters(callbacks.onOpenMemory);
