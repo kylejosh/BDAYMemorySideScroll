@@ -8,8 +8,11 @@ window.App.OutsideScene = (() => {
      ======================================================================== */
   const CHAPTER_SPACING = 1200;
   const FIRST_TRIGGER_X = 620;
-  const HOUSE_WORLD_X =
-    FIRST_TRIGGER_X + PICTURES_DATA.length * CHAPTER_SPACING - 600;
+  const LAST_TRIGGER_X =
+    FIRST_TRIGGER_X + Math.max(0, PICTURES_DATA.length - 1) * CHAPTER_SPACING;
+  const HOUSE_BUFFER_AFTER_LAST = 1750;
+
+  const HOUSE_WORLD_X = LAST_TRIGGER_X + HOUSE_BUFFER_AFTER_LAST;
   const HOUSE_STOP_X = HOUSE_WORLD_X + 290;
   const WORLD_WIDTH = HOUSE_WORLD_X + 830;
 
@@ -125,10 +128,10 @@ window.App.OutsideScene = (() => {
       const momHalfW = 42;
       const momScreenAnchor = Math.max(54, Math.round(viewportW * 0.16));
       const frameWidth = Math.min(344, viewportW - 28);
-      const targetStartScreenX = Math.max(14, viewportW - frameWidth - 16);
+      const targetStartScreenX = Math.max(16, viewportW - frameWidth - 12);
       const frameOffsetFromTrigger =
         targetStartScreenX + momHalfW - momScreenAnchor;
-      const dissolveLeftThreshold = -Math.round(frameWidth * 0.38);
+      const dissolveLeftThreshold = -Math.round(frameWidth * 0.72);
 
       metrics = {
         viewportW,
@@ -139,11 +142,15 @@ window.App.OutsideScene = (() => {
       };
     } else if (isLandscapeMobile) {
       const momHalfW = 39;
-      const momScreenAnchor = 150;
-      const targetStartScreenX = 215;
+      const momScreenAnchor = Math.max(96, Math.round(viewportW * 0.14));
+      const frameWidth = 370;
+      const targetStartScreenX = Math.max(
+        momScreenAnchor + momHalfW + 90,
+        Math.min(Math.round(viewportW * 0.45), viewportW - frameWidth - 20),
+      );
       const frameOffsetFromTrigger =
         targetStartScreenX + momHalfW - momScreenAnchor;
-      const dissolveLeftThreshold = 40;
+      const dissolveLeftThreshold = -Math.round(frameWidth * 0.72);
 
       metrics = {
         viewportW,
@@ -153,13 +160,17 @@ window.App.OutsideScene = (() => {
         dissolveLeftThreshold,
       };
     } else {
-      // Desktop: position large 430px Polaroid cleanly to the right of Mom
+      // Desktop: open near horizontal center-right, close well after Mom passes
       const momHalfW = 56;
-      const momScreenAnchor = 250;
-      const targetStartScreenX = 350;
+      const momScreenAnchor = Math.min(240, Math.round(viewportW * 0.16));
+      const frameWidth = Math.min(430, viewportW - 340);
+      const targetStartScreenX = Math.max(
+        momScreenAnchor + momHalfW + 140,
+        Math.min(Math.round(viewportW * 0.48), viewportW - frameWidth - 40),
+      );
       const frameOffsetFromTrigger =
         targetStartScreenX + momHalfW - momScreenAnchor;
-      const dissolveLeftThreshold = 58;
+      const dissolveLeftThreshold = -Math.round(frameWidth * 0.72);
 
       metrics = {
         viewportW,
@@ -343,7 +354,21 @@ window.App.OutsideScene = (() => {
           SoundManager.playMemoryChime();
         }
       } else if (hasTriggered && !isBeforeLeftBorder && frameScreenX > -220) {
-        nextState = "dissolving";
+        let nextState = "hidden";
+        if (hasTriggered && isBeforeLeftBorder) {
+          nextState = "open";
+          currentOpenIdx = idx;
+          if (!chimedChapters.has(idx)) {
+            chimedChapters.add(idx);
+            SoundManager.playMemoryChime();
+          }
+        } else if (
+          hasTriggered &&
+          !isBeforeLeftBorder &&
+          frameScreenX > metrics.dissolveLeftThreshold - 220
+        ) {
+          nextState = "dissolving";
+        }
       }
 
       if (nextState !== chapter.state) {
