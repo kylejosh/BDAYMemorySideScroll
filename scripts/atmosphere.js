@@ -84,6 +84,10 @@ window.App.Atmosphere = (() => {
     },
   ];
 
+  let lastTarget = null;
+  let lastU = -1;
+  let lastViewportW = -1;
+
   function hexToRgb(hex) {
     const clean = hex.replace("#", "");
     return [
@@ -126,6 +130,20 @@ window.App.Atmosphere = (() => {
 
   function apply(targetEl, uRaw, viewportW) {
     const u = Math.max(0, Math.min(1, uRaw));
+
+    // Skip expensive CSS variable recalculations when atmosphere hasn't changed
+    if (
+      targetEl === lastTarget &&
+      viewportW === lastViewportW &&
+      Math.abs(u - lastU) < 0.0005
+    ) {
+      return;
+    }
+
+    lastTarget = targetEl;
+    lastU = u;
+    lastViewportW = viewportW;
+
     let sA = ATMOSPHERE_STOPS[0];
     let sB = ATMOSPHERE_STOPS[ATMOSPHERE_STOPS.length - 1];
     let localT = 0;

@@ -50,7 +50,18 @@ window.App.Sprites = window.App.Sprites || {};
       </svg>`,
   };
 
+  const WOODEN_FENCE_SVG = `
+    <svg width="210" height="34" viewBox="0 0 210 34">
+      <rect x="0" y="10" width="210" height="5" fill="#bc6c25" stroke="#18141c" stroke-width="2"/>
+      <rect x="0" y="21" width="210" height="5" fill="#bc6c25" stroke="#18141c" stroke-width="2"/>
+      <rect x="12" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/>
+      <rect x="64" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/>
+      <rect x="116" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/>
+      <rect x="168" y="2" width="10" height="32" rx="2" fill="#dda15e" stroke="#18141c" stroke-width="2.2"/>
+    </svg>`;
+
   Object.assign(window.App.Sprites, {
     TREES,
+    WOODEN_FENCE_SVG,
   });
 })();
