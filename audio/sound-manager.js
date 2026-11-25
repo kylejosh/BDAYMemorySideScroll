@@ -1,10 +1,5 @@
 window.App = window.App || {};
 
-/**
- * SoundManager
- * Ready for .mp3 / .ogg files placed inside the /audio folder (e.g., audio/bgm.mp3),
- * with lightweight Web Audio API fallbacks so footsteps, chimes, and doors work immediately.
- */
 window.App.SoundManager = (() => {
   let audioCtx = null;
   let lastStepTime = 0;
@@ -46,7 +41,7 @@ window.App.SoundManager = (() => {
     ensureContext();
     if (!audioCtx) return;
 
-    const notes = [523.25, 659.25, 783.99]; // C5 - E5 - G5 soft chord
+    const notes = [523.25, 659.25, 783.99];
     notes.forEach((freq, i) => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -90,9 +85,61 @@ window.App.SoundManager = (() => {
     });
   }
 
+  function playCandleBlow() {
+    ensureContext();
+    if (!audioCtx) return;
+
+    // Festive cheer arpeggio when candles are blown out
+    const notes = [523.25, 659.25, 783.99, 1046.5];
+    notes.forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(
+        freq,
+        audioCtx.currentTime + 0.22 + i * 0.065,
+      );
+
+      gain.gain.setValueAtTime(0.045, audioCtx.currentTime + 0.22 + i * 0.065);
+      gain.gain.exponentialRampToValueAtTime(
+        0.0008,
+        audioCtx.currentTime + 0.22 + i * 0.065 + 0.55,
+      );
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(audioCtx.currentTime + 0.22 + i * 0.065);
+      osc.stop(audioCtx.currentTime + 0.22 + i * 0.065 + 0.56);
+    });
+  }
+
+  function playCandleRelight() {
+    ensureContext();
+    if (!audioCtx) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(660, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(
+      990,
+      audioCtx.currentTime + 0.14,
+    );
+
+    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0008, audioCtx.currentTime + 0.15);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.16);
+  }
+
   return {
     playStep,
     playMemoryChime,
     playDoorEnter,
+    playCandleBlow,
+    playCandleRelight,
   };
 })();

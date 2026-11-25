@@ -62,18 +62,16 @@
     </div>
 
     <!-- ====================================================================
-         SCENE 2: INSIDE THE HOUSE (scene/inside-house.js — Final Chapter)
-         ==================================================================== -->
-    <div class="scene-layer" id="inside-scene"></div>
-
-    <!-- ====================================================================
-         SHARED HUD CONTROLS (< & >) & PICTURE KEEPSAKE MODAL
+         SHARED HUD CONTROLS (< & >)
          ==================================================================== -->
     <div class="walk-pad" id="walk-pad">
       <button type="button" class="dir-btn" id="btn-left" aria-label="Walk Left">&lt;</button>
       <button type="button" class="dir-btn" id="btn-right" aria-label="Walk Right">&gt;</button>
     </div>
 
+    <!-- ====================================================================
+         MODAL 1: PICTURE KEEPSAKE MODAL
+         ==================================================================== -->
     <div class="modal-backdrop" id="memory-modal">
       <div class="modal-card">
         <div class="modal-photo-box" id="modal-photo-box"></div>
@@ -81,6 +79,13 @@
         <p class="modal-note" id="modal-note"></p>
         <button type="button" class="modal-btn" id="close-modal-btn">Continue Walking →</button>
       </div>
+    </div>
+
+    <!-- ====================================================================
+         MODAL 2: INSIDE THE HOUSE CELEBRATION (scene/inside-house.js)
+         ==================================================================== -->
+    <div class="modal-backdrop" id="house-modal">
+      <div class="house-modal-card" id="inside-scene"></div>
     </div>
   </div>
 
