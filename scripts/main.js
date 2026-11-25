@@ -102,32 +102,34 @@ window.App = window.App || {};
   requestAnimationFrame(tick);
 })();
 
-(() => {
-  const hud = document.createElement("div");
-  hud.style.cssText =
-    "position:fixed;top:8px;left:8px;z-index:9999;background:rgba(0,0,0,0.82);color:#06d6a0;font:12px monospace;padding:6px 10px;border-radius:6px;pointer-events:none;";
-  document.body.appendChild(hud);
+// Uncomment for performance diagnostic test 
 
-  let frames = 0;
-  let lastTime = performance.now();
-  let worstMs = 0;
-  let prevFrame = lastTime;
+// (() => {
+//   const hud = document.createElement("div");
+//   hud.style.cssText =
+//     "position:fixed;top:8px;left:8px;z-index:9999;background:rgba(0,0,0,0.82);color:#06d6a0;font:12px monospace;padding:6px 10px;border-radius:6px;pointer-events:none;";
+//   document.body.appendChild(hud);
 
-  function tick(now) {
-    const dt = now - prevFrame;
-    prevFrame = now;
-    if (dt > worstMs) worstMs = dt;
-    frames++;
+//   let frames = 0;
+//   let lastTime = performance.now();
+//   let worstMs = 0;
+//   let prevFrame = lastTime;
 
-    if (now - lastTime >= 500) {
-      const fps = Math.round((frames * 1000) / (now - lastTime));
-      hud.textContent = `FPS: ${fps} | Worst: ${worstMs.toFixed(1)}ms`;
-      hud.style.color = fps < 45 ? "#ff5964" : "#06d6a0";
-      frames = 0;
-      worstMs = 0;
-      lastTime = now;
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
+//   function tick(now) {
+//     const dt = now - prevFrame;
+//     prevFrame = now;
+//     if (dt > worstMs) worstMs = dt;
+//     frames++;
+
+//     if (now - lastTime >= 500) {
+//       const fps = Math.round((frames * 1000) / (now - lastTime));
+//       hud.textContent = `FPS: ${fps} | Worst: ${worstMs.toFixed(1)}ms`;
+//       hud.style.color = fps < 45 ? "#ff5964" : "#06d6a0";
+//       frames = 0;
+//       worstMs = 0;
+//       lastTime = now;
+//     }
+//     requestAnimationFrame(tick);
+//   }
+//   requestAnimationFrame(tick);
+// })();
