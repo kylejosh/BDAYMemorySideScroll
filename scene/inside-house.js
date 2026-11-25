@@ -26,6 +26,7 @@ window.App.InsideScene = (() => {
     insideCardEl.innerHTML = `
       <div class="inside-pov-viewport">
         <div class="inside-pov-stage" id="inside-pov-stage">
+          <button type="button" class="inside-exit-btn" id="inside-exit-btn">❌</button>
 
           <!-- BACKGROUND BALLOONS -->
           <div class="balloons-row">
