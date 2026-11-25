@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Her Walk Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Press+Start+2P&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/main.css" />
+</head>
+<body>
+
+  <div class="stage-frame" id="stage-frame">
+    <!-- ====================================================================
+         SCENE 1: OUTSIDE THE HOUSE (scene/outside-house.js)
+         ==================================================================== -->
+    <div class="scene-layer active" id="outside-scene">
+      <div class="celestial-orb"></div>
+      <div class="stars-2d"></div>
+      <div class="atmosphere-tint-overlay"></div>
+
+      <!-- Parallax Clouds -->
+      <div class="parallax-sky-layer" id="cloud-layer"></div>
+
+      <!-- Parallax Distant Mountains -->
+      <svg class="mountains-2d-layer" id="mountains-layer" viewBox="0 0 3600 190" preserveAspectRatio="none">
+        <path d="M0,190 L0,118 L180,52 L360,114 L560,38 L780,108 L980,62 L1200,118 L1420,44 L1660,110 L1880,56 L2120,108 L2400,66 L2640,44 L2880,110 L3120,56 L3360,108 L3600,66 L3600,190 Z" fill="var(--mountain-far)" opacity="0.36"/>
+      </svg>
+
+      <!-- Parallax Rolling Meadow Hills -->
+      <svg class="hills-2d-layer" id="hills-layer" viewBox="0 0 4600 155" preserveAspectRatio="none">
+        <path d="M0,155 L0,96 Q240,34 500,88 T1020,76 T1560,92 T2100,70 T2660,88 T3200,78 T3740,86 T4280,72 T4600,84 L4600,155 Z" fill="var(--hill-mid)" opacity="0.54"/>
+        <path d="M0,155 L0,118 Q280,68 580,112 T1180,102 T1780,116 T2380,98 T3200,110 T3800,102 T4600,112 L4600,155 Z" fill="var(--hill-near)" opacity="0.64"/>
+      </svg>
+
+      <!-- Scrolling 2D Countryside Track -->
+      <div class="world-track" id="world-track">
+        <div id="scenery-prop-layer"></div>
+        <div id="chapters-mount"></div>
+        <div class="house-2d-wrapper" id="house-wrapper"></div>
+
+        <!-- Chibi Pixel Character Sprite (Mom) -->
+        <div class="mom-chibi-character" id="mom-sprite">
+          <div class="chibi-svg-wrap" id="chibi-sprite-mount"></div>
+          <div class="mom-ground-shadow"></div>
+        </div>
+
+        <!-- Smooth 2D Grass Verge & Cement Road -->
+        <div class="grass-verge-2d">
+          <div class="driveway-2d" id="house-driveway"></div>
+        </div>
+        <div class="cement-road-2d" id="cement-road">
+          <div class="road-dashes-2d"></div>
+        </div>
+      </div>
+
+      <!-- Enter the House Trigger Button -->
+      <button type="button" class="enter-house-btn" id="enter-house-btn">
+        🏠 Enter the House
+      </button>
+    </div>
+
+    <!-- ====================================================================
+         SCENE 2: INSIDE THE HOUSE (scene/inside-house.js — Final Chapter)
+         ==================================================================== -->
+    <div class="scene-layer" id="inside-scene"></div>
+
+    <!-- ====================================================================
+         SHARED HUD CONTROLS (< & >) & PICTURE KEEPSAKE MODAL
+         ==================================================================== -->
+    <div class="walk-pad" id="walk-pad">
+      <button type="button" class="dir-btn" id="btn-left" aria-label="Walk Left">&lt;</button>
+      <button type="button" class="dir-btn" id="btn-right" aria-label="Walk Right">&gt;</button>
+    </div>
+
+    <div class="modal-backdrop" id="memory-modal">
+      <div class="modal-card">
+        <div class="modal-photo-box" id="modal-photo-box"></div>
+        <div class="modal-title" id="modal-title"></div>
+        <p class="modal-note" id="modal-note"></p>
+        <button type="button" class="modal-btn" id="close-modal-btn">Continue Walking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ordered Scripts -->
+  <script src="scripts/pictures-data.js"></script>
+  <script src="assets/sprites.js"></script>
+  <script src="audio/sound-manager.js"></script>
+  <script src="scripts/atmosphere.js"></script>
+  <script src="scene/outside-house.js"></script>
+  <script src="scene/inside-house.js"></script>
+  <script src="scripts/controls.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
