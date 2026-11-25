@@ -277,7 +277,7 @@
     overflow-y: auto;
     max-height: 100%;
     padding-right: 4px;
-    padding-top: 10px;
+    padding-top: 5px;
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
