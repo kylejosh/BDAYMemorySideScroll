@@ -86,12 +86,30 @@
   }
 
   .modal-photo-box {
-    height: 185px;
+    height: min(165px, 30dvh);
+    border-width: 2.5px;
+    margin-bottom: 10px;
   }
 
-  .house-modal-card {
-    padding: 5px;
-    border-radius: 14px;
+  .modal-card {
+    width: min(94vw, 420px);
+    padding: 12px 14px 16px 14px;
+    border-width: 3px;
+  }
+
+  .modal-title {
+    font-size: 26px;
+  }
+
+  .modal-note {
+    font-size: 13.5px;
+    line-height: 1.45;
+    margin: 6px 0 14px;
+  }
+
+  .modal-btn {
+    padding: 9px 16px;
+    font-size: 12.5px;
   }
 }
 
@@ -216,5 +234,59 @@
     font-size: 12.5px;
     bottom: calc(12px + env(safe-area-inset-bottom));
     right: calc(12px + env(safe-area-inset-right));
+  }
+
+  .modal-card {
+    display: grid;
+    grid-template-columns: 44% 1fr;
+    grid-template-rows: auto 1fr auto;
+    column-gap: 14px;
+    row-gap: 6px;
+    align-items: start;
+    text-align: left;
+    width: min(92vw, 640px);
+    max-height: calc(
+      100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+    padding: 12px 16px 12px 12px;
+    overflow: hidden;
+  }
+
+  .modal-photo-box {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 100%;
+    height: 100%;
+    min-height: 165px;
+    margin-bottom: 0;
+    border-width: 2.5px;
+  }
+
+  .modal-title {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 32px;
+  }
+
+  .modal-note {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 20px;
+    line-height: 1.42;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 4px;
+    padding-top: 10px;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-btn {
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: start;
+    padding: 8px 14px;
+    font-size: 12px;
   }
 }
