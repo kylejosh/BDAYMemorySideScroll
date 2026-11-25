@@ -249,7 +249,7 @@
   position: absolute;
   bottom: 124px;
   width: 258px;
-  height: 296px;
+  height: min(296px, calc(100dvh - 154px));
   z-index: 14;
   pointer-events: none;
 }
@@ -371,12 +371,14 @@
 
 .greeting-area {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding-top: 7px;
+  overflow: hidden;
 }
 
 .memory-title {
@@ -395,7 +397,6 @@
   margin-top: 5px;
   padding: 0 4px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
