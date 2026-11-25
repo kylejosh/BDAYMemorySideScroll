@@ -2,8 +2,8 @@ window.App = window.App || {};
 
 /**
  * InsideScene (Final Chapter — POV Birthday Celebration Modal)
- * Assembles the 980x470 POV room using modular assets from
- * assets/characters/family-sprites.js and assets/props/birthday-cake.js.
+ * Lazy-mounts the 980x470 POV room only when the user enters the house
+ * so zero interior DOM nodes or animations run during the outside walk.
  */
 window.App.InsideScene = (() => {
   const { Sprites, SoundManager } = window.App;
@@ -14,6 +14,7 @@ window.App.InsideScene = (() => {
   let spriteCanvases = [];
   let callbacksRef = {};
   let candlesOut = false;
+  let isMounted = false;
 
   function updateResponsiveScale() {
     const availW = Math.max(280, window.innerWidth - 36);
@@ -103,6 +104,33 @@ window.App.InsideScene = (() => {
     });
   }
 
+  function mount() {
+    if (isMounted) return;
+    isMounted = true;
+
+    buildInteriorMarkup();
+
+    povStageEl = document.getElementById("inside-pov-stage");
+    cakeHeroEl = document.getElementById("cake-hero");
+    spriteCanvases = Array.from(povStageEl.querySelectorAll(".pixel-sprite"));
+
+    renderFamily(candlesOut);
+
+    cakeHeroEl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleCandles();
+    });
+
+    document
+      .getElementById("inside-exit-btn")
+      .addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (callbacksRef.onExitHouse) callbacksRef.onExitHouse();
+      });
+
+    window.addEventListener("resize", updateResponsiveScale);
+  }
+
   function launchConfetti() {
     const colors = [
       "#ff5964",
@@ -146,35 +174,13 @@ window.App.InsideScene = (() => {
   }
 
   function open() {
+    mount();
     updateResponsiveScale();
   }
 
   function init(callbacks) {
     callbacksRef = callbacks || {};
     insideCardEl = document.getElementById("inside-scene");
-
-    buildInteriorMarkup();
-
-    povStageEl = document.getElementById("inside-pov-stage");
-    cakeHeroEl = document.getElementById("cake-hero");
-    spriteCanvases = Array.from(povStageEl.querySelectorAll(".pixel-sprite"));
-
-    renderFamily(false);
-    updateResponsiveScale();
-
-    cakeHeroEl.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleCandles();
-    });
-
-    document
-      .getElementById("inside-exit-btn")
-      .addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (callbacksRef.onExitHouse) callbacksRef.onExitHouse();
-      });
-
-    window.addEventListener("resize", updateResponsiveScale);
   }
 
   return {

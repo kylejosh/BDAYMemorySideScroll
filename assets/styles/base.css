@@ -187,13 +187,20 @@ body {
   justify-content: center;
   padding: 16px;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s linear 0.3s;
   z-index: 50;
 }
 .modal-backdrop.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s;
 }
 
 .modal-card {
