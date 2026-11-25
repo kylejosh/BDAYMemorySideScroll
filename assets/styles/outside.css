@@ -1,0 +1,496 @@
+/* ========================================================================
+   OUTSIDE SCENE: SKY, CELESTIAL ORB & PARALLAX LAYERS
+   ======================================================================== */
+#outside-scene {
+  background: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid) 56%,
+    var(--sky-bottom) 100%
+  );
+}
+
+.celestial-orb {
+  position: absolute;
+  left: var(--celestial-x);
+  top: var(--celestial-y);
+  width: var(--celestial-size);
+  height: var(--celestial-size);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--celestial-color);
+  box-shadow: 0 0 52px 20px var(--celestial-glow);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stars-2d {
+  position: absolute;
+  inset: 0;
+  opacity: var(--star-opacity);
+  background-image:
+    radial-gradient(2.5px 2.5px at 10% 10%, #ffffff, transparent),
+    radial-gradient(2px 2px at 24% 18%, #ffe74c, transparent),
+    radial-gradient(3px 3px at 38% 8%, #ffffff, transparent),
+    radial-gradient(2px 2px at 54% 16%, #ffe74c, transparent),
+    radial-gradient(2.5px 2.5px at 68% 11%, #ffffff, transparent),
+    radial-gradient(2px 2px at 82% 17%, #ffe74c, transparent),
+    radial-gradient(3px 3px at 92% 10%, #ffffff, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.atmosphere-tint-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--ambient-tint);
+  pointer-events: none;
+  z-index: 12;
+}
+
+.parallax-sky-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+  opacity: var(--cloud-opacity);
+}
+
+.cloud-2d {
+  position: absolute;
+  width: 138px;
+  height: 36px;
+  background: rgba(255, 252, 245, 0.92);
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(24, 20, 28, 0.08);
+}
+.cloud-2d::before {
+  content: "";
+  position: absolute;
+  top: -17px;
+  left: 24px;
+  width: 52px;
+  height: 38px;
+  background: inherit;
+  border-radius: 50%;
+}
+.cloud-2d::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  width: 40px;
+  height: 30px;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.mountains-2d-layer {
+  position: absolute;
+  bottom: 88px;
+  left: 0;
+  width: 3600px;
+  height: 190px;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+}
+
+.hills-2d-layer {
+  position: absolute;
+  bottom: 88px;
+  left: 0;
+  width: 4600px;
+  height: 155px;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+}
+
+/* ========================================================================
+   WORLD TRACK, SCENERY PROPS, HOUSE EXTERIOR & ROAD
+   ======================================================================== */
+.world-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  will-change: transform;
+  z-index: 4;
+}
+
+.scenic-tree {
+  position: absolute;
+  bottom: 88px;
+  pointer-events: none;
+}
+
+.wooden-fence {
+  position: absolute;
+  bottom: 90px;
+  height: 34px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.lamp-2d {
+  position: absolute;
+  bottom: 90px;
+  width: 44px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4;
+}
+.lamp-2d-halo {
+  position: absolute;
+  top: -46px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 242, 117, 0.85) 0%,
+    rgba(255, 242, 117, 0) 72%
+  );
+  opacity: var(--lamp-glow-opacity);
+  pointer-events: none;
+}
+.lamp-2d-bulb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff 0%,
+    #fff200 65%,
+    #f4a261 100%
+  );
+  border: 3px solid var(--outline);
+  position: relative;
+  z-index: 2;
+}
+.lamp-2d-pole {
+  width: 7px;
+  flex: 1;
+  background: linear-gradient(90deg, #2b2636 0%, #18141c 100%);
+  margin-top: -2px;
+  border-radius: 3px;
+}
+
+.house-2d-wrapper {
+  position: absolute;
+  bottom: 90px;
+  width: 700px;
+  height: 264px;
+  z-index: 6;
+}
+
+.house-warm-glow {
+  opacity: var(--house-light-opacity);
+}
+
+.grass-verge-2d {
+  position: absolute;
+  bottom: 74px;
+  left: 0;
+  width: 100%;
+  height: 18px;
+  background: linear-gradient(180deg, #52b788 0%, #40916c 100%);
+  border-top: 3px solid var(--outline);
+  border-bottom: 3px solid #7f5539;
+  z-index: 5;
+}
+
+.driveway-2d {
+  position: absolute;
+  top: -3px;
+  width: 120px;
+  height: 21px;
+  background: linear-gradient(180deg, #dfe3e8 0%, #cfd4dc 100%);
+  border-left: 3px solid var(--outline);
+  border-right: 3px solid var(--outline);
+  z-index: 6;
+}
+
+.cement-road-2d {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 74px;
+  background: linear-gradient(180deg, #dfe3e8 0%, #cfd4dc 70%, #bfc5ce 100%);
+  z-index: 4;
+  cursor: pointer;
+}
+
+.road-dashes-2d {
+  position: absolute;
+  top: 27px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #9da3ad 0px,
+    #9da3ad 96px,
+    transparent 96px,
+    transparent 216px
+  );
+  opacity: 0.85;
+}
+
+/* ========================================================================
+   FLOATING REMINISCING PICTURE FRAMES
+   ======================================================================== */
+.reminisce-slot {
+  position: absolute;
+  bottom: 124px;
+  width: 258px;
+  height: 296px;
+  z-index: 14;
+  pointer-events: none;
+}
+
+.floating-memory-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateY(72px) scale(0.84) rotate(-2deg);
+  transition:
+    opacity 0.65s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.6s ease;
+  will-change: transform, opacity;
+  cursor: pointer;
+
+  background: linear-gradient(180deg, #fffdf9 0%, #fbf5e8 100%);
+  border: 3.5px solid var(--outline);
+  border-radius: 18px;
+  padding: 13px 13px 14px 13px;
+  box-shadow:
+    0 22px 42px rgba(24, 20, 28, 0.35),
+    0 0 28px 6px var(--memory-halo);
+  display: flex;
+  flex-direction: column;
+}
+
+.reminisce-slot.is-open .floating-memory-frame {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0px) scale(1) rotate(0deg);
+  pointer-events: auto;
+  animation: smooth2dFloat 3.2s ease-in-out 0.8s infinite alternate;
+}
+
+.reminisce-slot.is-dissolving .floating-memory-frame {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(-28px) scale(0.92) rotate(-1.5deg);
+  pointer-events: none;
+  animation: none;
+}
+
+@keyframes smooth2dFloat {
+  0% {
+    transform: translateY(0px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(-10px) rotate(0.6deg);
+  }
+}
+
+.reminisce-aura {
+  position: absolute;
+  inset: -18px;
+  border-radius: 26px;
+  background: radial-gradient(
+    circle,
+    var(--memory-halo) 0%,
+    rgba(255, 231, 76, 0) 74%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.reminisce-slot.is-open .reminisce-aura {
+  opacity: 1;
+}
+
+.memory-ribbon-tag {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffe74c;
+  color: #18141c;
+  border: 2.5px solid var(--outline);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 6.5px;
+  white-space: nowrap;
+  box-shadow: 0 3px 0 rgba(24, 20, 28, 0.25);
+  z-index: 15;
+}
+
+.photo-viewport {
+  width: 100%;
+  height: 154px;
+  border: 3px solid var(--outline);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: #2b2638;
+  flex-shrink: 0;
+}
+
+.photo-viewport img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-viewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0) 45%
+  );
+  pointer-events: none;
+}
+
+.greeting-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.memory-title {
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1;
+  color: #18141c;
+}
+
+.birthday-greeting-text {
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.32;
+  color: #4a3f55;
+  margin-top: 5px;
+  padding: 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.art-2d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.art-2d-1 {
+  background: linear-gradient(
+    180deg,
+    #90e0ef 0%,
+    #caf0f8 62%,
+    #74c69d 62%,
+    #52b788 100%
+  );
+}
+.art-2d-2 {
+  background: linear-gradient(
+    180deg,
+    #ff9f1c 0%,
+    #ffbf69 58%,
+    #e9ecef 58%,
+    #ced4da 100%
+  );
+}
+.art-2d-3 {
+  background: linear-gradient(180deg, #cdb4db 0%, #ffc8dd 64%, #ffafcc 100%);
+}
+
+/* ========================================================================
+   CHIBI PIXEL CHARACTER SPRITE (MOM)
+   ======================================================================== */
+.mom-chibi-character {
+  position: absolute;
+  bottom: 60px;
+  left: 160px;
+  width: 112px;
+  height: 146px;
+  z-index: 18;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.chibi-svg-wrap {
+  width: 112px;
+  height: 144px;
+  position: relative;
+  z-index: 3;
+  image-rendering: pixelated;
+}
+
+.mom-chibi-character.facing-left .chibi-svg-wrap {
+  transform: scaleX(-1);
+}
+
+.mom-chibi-character.is-walking .chibi-svg-wrap {
+  animation: chibiHop 0.34s steps(2) infinite alternate;
+}
+@keyframes chibiHop {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+.mom-chibi-character.facing-left.is-walking .chibi-svg-wrap {
+  animation: chibiHopLeft 0.34s steps(2) infinite alternate;
+}
+@keyframes chibiHopLeft {
+  0% {
+    transform: scaleX(-1) translateY(0px);
+  }
+  100% {
+    transform: scaleX(-1) translateY(-4px);
+  }
+}
+
+.mom-ground-shadow {
+  position: absolute;
+  bottom: -2px;
+  width: 74px;
+  height: 14px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(24, 20, 28, 0.38) 0%,
+    rgba(24, 20, 28, 0) 75%
+  );
+  border-radius: 50%;
+  z-index: 1;
+}

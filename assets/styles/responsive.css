@@ -1,0 +1,61 @@
+/* ========================================================================
+   MOBILE RESPONSIVE ADAPTATIONS (< 640px)
+   ======================================================================== */
+@media (max-width: 639px) {
+  .reminisce-slot {
+    width: 214px;
+    height: 266px;
+    bottom: 126px;
+  }
+
+  .floating-memory-frame {
+    padding: 10px 10px 11px 10px;
+    border-radius: 15px;
+  }
+
+  .photo-viewport {
+    height: 130px;
+  }
+
+  .memory-title {
+    font-size: 19px;
+  }
+
+  .birthday-greeting-text {
+    font-size: 11px;
+  }
+
+  .mom-chibi-character {
+    width: 96px;
+    height: 126px;
+    bottom: 62px;
+  }
+
+  .chibi-svg-wrap,
+  .chibi-svg-wrap svg {
+    width: 96px;
+    height: 124px;
+  }
+
+  .dir-btn {
+    width: 54px;
+    height: 54px;
+    font-size: 16px;
+  }
+
+  .enter-house-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    right: max(14px, env(safe-area-inset-right));
+  }
+
+  .modal-photo-box {
+    height: 165px;
+  }
+
+  .house-modal-card {
+    padding: 5px;
+    border-radius: 14px;
+  }
+}
