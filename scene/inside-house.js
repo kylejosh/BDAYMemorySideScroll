@@ -234,6 +234,7 @@ window.App.InsideScene = (() => {
   return {
     init,
     open,
+    close,
     toggleCandles,
   };
 })();
