@@ -36,4 +36,10 @@ window.App.PICTURES_DATA = [
     message:
       "Happy birthday mama, love kita pero alam mo na yata yan. I hope hindi ka magagalit sa aking exam score hehehe",
   },
+  {
+    title: "Pamangkin ni Daday",
+    picture: "images/perpetua.jpg",
+    message:
+      "happy bday sa aking other mother! ‘wag ka na mag alala sa mga animals mu sa bahay m kaz aq na bahala basta dapat makagraduate muna aq 😍✌️’wag ka na pastress kasi c rikrik na bahala payamanin ka 😘 love u #fromyourotherdaughter",
+  },
 ];
