@@ -7,21 +7,21 @@ window.App = window.App || {};
  */
 window.App.PICTURES_DATA = [
   {
-    title: "Our Warmest Home",
+    title: "Anak1",
     picture: "images/kay.jpg",
     message:
       "happy birthday, mader🔥🌸🎉 thanksyuu sa pag support ng kaartehan ko 🥰 and for every little to biggest things you’ve done for all of us 🥳🥰",
   },
   {
-    title: "Every Mile Together",
-    picture: "preset:van",
+    title: "Anak2",
+    picture: "images/tom.jpg",
     message:
-      "From school runs in our white van to weekend family drives, every journey with you has been filled with laughter and care. Wishing you the happiest birthday!",
+      "Happy birthday maderes, Salamat for being a caring and supportive, and most importantly for being who you are. Love you maa, pakasal na kita!",
   },
   {
-    title: "Everything You Built",
-    picture: "preset:graduation",
+    title: "Anak3",
+    picture: "images/kim.jpg",
     message:
-      "From high school to college and post-grad, every milestone we reach is a reflection of your love and sacrifice. Happy Birthday to the heart of our family!",
+      "Happy happi happi birthdyas our dear Mother of the year‼️‼️thank you for your hard work and love throughout our lives and we always wish you the happiest birthdays❤️‍🩹❤️‍🩹 love you always #grrthursdays 😊😊😊 👍👍",
   },
 ];
