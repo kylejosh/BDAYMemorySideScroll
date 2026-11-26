@@ -15,6 +15,7 @@ window.App.InsideScene = (() => {
   let callbacksRef = {};
   let candlesOut = false;
   let isMounted = false;
+  let bdaySongTimer = null;
 
   function updateResponsiveScale() {
     const availW = Math.max(280, window.innerWidth - 36);
@@ -104,6 +105,42 @@ window.App.InsideScene = (() => {
     });
   }
 
+  /* ========================================================================
+     MUSIC SONG
+     ======================================================================== */
+
+  const bdayMusic = new Audio("assets/audio/bday-song.mp3");
+  bdayMusic.loop = true;
+  bdayMusic.volume = 0.3;
+  bdayMusic.preload = "auto";
+  let bgmStarted = false;
+
+  function startBdaySong() {
+    if (bgmStarted) return;
+    bdayMusic
+      .play()
+      .then(() => {
+        bgmStarted = true;
+      })
+      .catch(() => {
+        // Browser blocked autoplay before gesture; will retry on next tap
+      });
+  }
+
+  function stopBdaySong() {
+    bdayMusic.pause();
+    bdayMusic.currentTime = 0;
+    bgmStarted = false;
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      bdayMusic.pause();
+    } else if (bgmStarted) {
+      bdayMusic.play().catch(() => {});
+    }
+  });
+
   function mount() {
     if (isMounted) return;
     isMounted = true;
@@ -125,6 +162,7 @@ window.App.InsideScene = (() => {
       .getElementById("inside-exit-btn")
       .addEventListener("click", (e) => {
         e.stopPropagation();
+        close();
         if (callbacksRef.onExitHouse) callbacksRef.onExitHouse();
       });
 
@@ -158,15 +196,19 @@ window.App.InsideScene = (() => {
     if (!candlesOut) {
       povStageEl.classList.add("blowing");
       SoundManager.playCandleBlow();
+      clearTimeout(bdaySongTimer);
       setTimeout(() => {
         povStageEl.classList.remove("blowing");
         povStageEl.classList.add("candles-out");
         candlesOut = true;
         renderFamily(true);
         launchConfetti();
+        startBdaySong();
       }, 280);
     } else {
       candlesOut = false;
+      clearTimeout(bdaySongTimer);
+      stopBdaySong();
       povStageEl.classList.remove("candles-out", "blowing");
       SoundManager.playCandleRelight();
       renderFamily(false);
@@ -176,6 +218,12 @@ window.App.InsideScene = (() => {
   function open() {
     mount();
     updateResponsiveScale();
+  }
+
+  function close() {
+    clearTimeout(bdaySongTimer);
+    bdaySongTimer = null;
+    stopBdaySong();
   }
 
   function init(callbacks) {
