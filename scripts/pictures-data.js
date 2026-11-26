@@ -10,7 +10,7 @@ window.App.PICTURES_DATA = [
     title: "Anak1",
     picture: "images/kay.jpg",
     message:
-      "happy birthday, mader🔥🌸🎉 thanksyuu sa pag support ng kaartehan ko 🥰 and for every little to biggest things you’ve done for all of us 🥳🥰",
+      "Happy birthday, Mader🔥🌸🎉 thanksyuu sa pag support ng kaartehan ko 🥰 and for every little to biggest things you’ve done for all of us 🥳🥰",
   },
   {
     title: "Anak2",
