@@ -24,4 +24,10 @@ window.App.PICTURES_DATA = [
     message:
       "Happy happi happi birthdyas our dear Mother of the year‼️‼️thank you for your hard work and love throughout our lives and we always wish you the happiest birthdays❤️‍🩹❤️‍🩹 love you always #grrthursdays 😊😊😊 👍👍",
   },
+  {
+    title: "Anak4",
+    picture: "images/rik.jpg",
+    message:
+      "Hapi Bertdey Maderr🎉 eto na yung regalo q sau hehe.. next year kwarta naman wow. 🥳🥳",
+  },
 ];
