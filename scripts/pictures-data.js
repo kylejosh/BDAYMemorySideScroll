@@ -37,9 +37,15 @@ window.App.PICTURES_DATA = [
       "Happy birthday mama, love kita pero alam mo na yata yan. I hope hindi ka magagalit sa aking exam score hehehe",
   },
   {
-    title: "Pamangkin ni Daday",
+    title: "Pamangkin ni Daday 1",
     picture: "images/perpetua.jpg",
     message:
-      "happy bday sa aking other mother! ‘wag ka na mag alala sa mga animals mu sa bahay m kaz aq na bahala basta dapat makagraduate muna aq 😍✌️’wag ka na pastress kasi c rikrik na bahala payamanin ka 😘 love u #fromyourotherdaughter",
+      "Happy bday sa aking other mother! ‘wag ka na mag alala sa mga animals mu sa bahay m kaz aq na bahala basta dapat makagraduate muna aq 😍✌️’wag ka na pastress kasi c rikrik na bahala payamanin ka 😘 love u #fromyourotherdaughter",
+  },
+  {
+    title: "Pamangkin ni Daday 2",
+    picture: "images/iah.jpg",
+    message:
+      "Thank you for being such a good role model to me and my other cousins. You’ve shown us how hardworking and positive you are. I admire how you always see the good in every situation and choose to stay positive no matter what. Sana pag ganyan na rin age ko kasing fresh mo pa rin ako. Happy birthday!! we love you ♥️",
   },
 ];
