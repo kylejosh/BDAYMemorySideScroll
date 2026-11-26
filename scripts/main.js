@@ -52,7 +52,10 @@ window.App = window.App || {};
   });
 
   houseModal.addEventListener("click", (e) => {
-    if (e.target === houseModal) closeHouseModal();
+    if (e.target === houseModal) {
+      closeHouseModal();
+      InsideScene.close();
+    }
   });
 
   // Initialize Outside Scene, Inside Celebration Modal & Controls
