@@ -303,6 +303,9 @@ window.App.OutsideScene = (() => {
         </div>
       `;
 
+      const img = slotEl.querySelector("img");
+      if (img) img.decoding = "async";
+
       slotEl
         .querySelector(".floating-memory-frame")
         .addEventListener("click", (e) => {
