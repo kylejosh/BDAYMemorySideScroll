@@ -8,9 +8,9 @@ window.App = window.App || {};
 window.App.PICTURES_DATA = [
   {
     title: "Anak1",
-    picture: "images/kay.jpg",
+    picture: "images/rik.jpg",
     message:
-      "Happy birthday, Mader🔥🌸🎉 thanksyuu sa pag support ng kaartehan ko 🥰 and for every little to biggest things you’ve done for all of us 🥳🥰",
+      "Hapi Bertdey Maderr🎉 eto na yung regalo q sau hehe.. next year kwarta naman para walang stress ebridey ebrinayt wow. 🥳🥳",
   },
   {
     title: "Anak2",
@@ -20,14 +20,20 @@ window.App.PICTURES_DATA = [
   },
   {
     title: "Anak3",
+    picture: "images/kay.jpg",
+    message:
+      "Happy birthday, Mader🔥🌸🎉 thanksyuu sa pag support ng kaartehan ko 🥰 and for every little to biggest things you’ve done for all of us 🥳🥰",
+  },
+  {
+    title: "Anak4",
     picture: "images/kim.jpg",
     message:
       "Happy happi happi birthdyas our dear Mother of the year‼️‼️thank you for your hard work and love throughout our lives and we always wish you the happiest birthdays❤️‍🩹❤️‍🩹 love you always #grrthursdays 😊😊😊 👍👍",
   },
   {
-    title: "Anak4",
-    picture: "images/rik.jpg",
+    title: "Anak5",
+    picture: "images/ped.jpg",
     message:
-      "Hapi Bertdey Maderr🎉 eto na yung regalo q sau hehe.. next year kwarta naman wow. 🥳🥳",
+      "Happy birthday mama, love kita pero alam mo na yata yan. I hope hindi ka magagalit sa aking exam score hehehe",
   },
 ];
